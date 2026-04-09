@@ -1,0 +1,150 @@
+<!-- Header Section -->
+<nav class="products-navbar">
+ 
+  <div class="nav-links">
+    <button class="nav-btn dashboard-btn" (click)="navigateToDashboard()">
+      <i class="bi bi-speedometer2"></i> Dashboard
+    </button>
+    <button class="nav-btn add-product-btn" (click)="navigateToAddProduct()">
+      <i class="bi bi-plus-circle"></i> Add Product
+    </button>
+    
+  </div>
+</nav>
+<div class="products-grid">
+  <div class="product-card shadow-sm" *ngFor="let product of filteredProducts">
+
+    <div class="image-container">
+     <img 
+  *ngIf="product?.image" class="product-image"
+  [src]="'data:image/jpeg;base64,' + product?.image">    </div>
+
+    <div class="product-details">
+      <span class="product-category">{{ product.category }}</span>
+
+      <h3 class="product-name">{{ product.name }}</h3>
+
+      <p class="product-price">₹{{ product.price }}</p>
+
+     <p class="product-desc">
+  {{ product.showFullDesc ? product.description : (product.description | slice:0:100) + (product.description.length > 100 ? '...' : '') }}
+  <span *ngIf="product.description.length > 100" class="read-more" (click)="toggleDescription(product)">
+    {{ product.showFullDesc ? ' Show less' : ' Read more' }}
+  </span>
+</p>
+
+      <p class="stock">
+        <strong>Stock:</strong> {{ product.quantity }}
+      </p>
+    </div>
+
+    <div class="card-actions">
+      <button class="btn-view" (click)="openViewModal(product)">
+        <i class="bi bi-eye"></i> View
+      </button>
+
+      <button class="btn-edit" (click)="openEditModal(product)">
+        <i class="bi bi-pencil"></i> Edit
+      </button>
+
+<button class="btn-delete" (click)="deleteProduct(product.id!)">
+        <i class="bi bi-trash"></i> Delete
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="selectedProduct" (click)="closeViewModal()">
+  <div class="product-modal-card" (click)="$event.stopPropagation()">
+    <button class="close-x"
+      style="position: absolute; top: 15px; right: 20px; border: none; background: none; font-size: 1.5rem; cursor: pointer;"
+      (click)="closeViewModal()">&times;</button>
+
+    <div style="display: flex; gap: 25px; align-items: flex-start;">
+      <div style="flex: 1; background: #f9f9f9; border-radius: 10px; padding: 10px;">
+       <img 
+  *ngIf="selectedProduct?.image"
+ [src]="selectedProduct.image ? 'data:image/jpeg;base64,' + selectedProduct.image : ''">
+      </div>
+
+      <div style="flex: 1.5;">
+        <span class="product-category">{{ selectedProduct.category }}</span>
+        <h2 style="margin: 10px 0;">{{ selectedProduct.name }}</h2>
+        <h3 class="product-price">₹{{ selectedProduct.price }}</h3>
+        <p><strong>Stock Availability:</strong> {{ selectedProduct.quantity }} units</p>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+        <p style="color: #666; line-height: 1.6;">{{ selectedProduct.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="filteredProducts.length === 0" style="text-align: center; padding: 50px; color: #888;">
+  <i class="bi bi-search" style="font-size: 3rem; display: block; margin-bottom: 10px;"></i>
+  <p>No products found matching your search.</p>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" *ngIf="editingProduct" (click)="closeEditModal()">
+  <div class="edit-modal-card" (click)="$event.stopPropagation()">
+    <div class="edit-modal-header">
+      <h3>Edit Product</h3>
+      
+    </div>
+
+    <div class="edit-modal-body">
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" [(ngModel)]="editingProduct.name" class="form-control" placeholder="Product Name">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Price (₹)</label>
+          <input type="number" [(ngModel)]="editingProduct.price" class="form-control" placeholder="Price">
+        </div>
+
+        <div class="form-group">
+          <label>Stock Quantity</label>
+          <input type="number" [(ngModel)]="editingProduct.quantity" class="form-control" placeholder="Quantity">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select [(ngModel)]="editingProduct.category" class="form-control">
+          <option value="">Select Category</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Home">Home & Kitchen</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea [(ngModel)]="editingProduct.description" rows="4" class="form-control"
+          placeholder="Product description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Product Image</label>
+        <div class="image-upload-area" (click)="editFileInput.click()">
+          <i class="bi bi-camera"></i> Change Image
+          <input #editFileInput type="file" (change)="onEditFileSelected($event)" accept=".jpg,.jpeg,.png,.jfif" hidden>
+        </div>
+        <div *ngIf="editImagePreview" class="image-preview">
+          <img [src]="'data:image/jpeg;base64,' + editImagePreview" class="preview-img">
+        </div>
+      </div>
+    </div>
+
+    <div class="edit-modal-footer">
+      <button class="btn-cancel" (click)="closeEditModal()">Cancel</button>
+      <button class="btn-update" (click)="updateProductDetails()" [disabled]="!isEditFormValid() || isUpdating">
+        <span *ngIf="!isUpdating">Update Product</span>
+        <span *ngIf="isUpdating">Updating...</span>
+      </button>
+    </div>
+  </div>
+</div>

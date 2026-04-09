@@ -1,0 +1,123 @@
+<div class="signup-container">
+
+    <div class="signup-card">
+
+        <!-- Back inside card -->
+        <a routerLink="/" class="back-home">
+            <i class="bi bi-arrow-left"></i> Back to Home
+        </a>
+
+        <h2>Create Account</h2>
+        <p class="subtitle">Join ShopeZ today</p>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+            <!-- Full Name -->
+            <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label">Full Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="fullname" placeholder="John Doe">
+                    <small class="text-danger" *ngIf="f['fullname'].touched && f['fullname'].invalid">
+                        Invalid Name
+                    </small>
+                </div>
+            </div>
+
+            <!-- Username -->
+            <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label">Username</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" formControlName="username" placeholder="johndoe123">
+                    <small class="text-danger" *ngIf="f['username'].touched && f['username'].invalid">
+                        Invalid Username
+                    </small>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label">Contact</label>
+                <div class="col-sm-8">
+                    <input type="tel" class="form-control" formControlName="contactno" placeholder="9876543210">
+                    <small class="text-danger" *ngIf="f['contactno'].touched && f['contactno'].invalid">
+                        Enter valid 10-digit number (starts with 6–9)
+                    </small>
+                </div>
+            </div>
+
+            <!-- Role (Default USER) -->
+            <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label">Role</label>
+                <div class="col-sm-8">
+                    <select class="form-select" formControlName="role">
+                        <option value="USER">USER</option>
+                        <option value="ADMIN" disabled hidden>ADMIN</option>
+                    </select>
+                    <small class="text-secondary">
+                        Select account access level
+                    </small>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" formControlName="email" placeholder="email@example.com">
+                    <small class="text-danger" *ngIf="f['email'].touched && f['email'].invalid">
+                        Invalid Email
+                    </small>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label">Password</label>
+                <div class="col-sm-8 position-relative">
+                    <input [type]="showPassword ? 'text' : 'password'" class="form-control pe-5"
+                        formControlName="password" placeholder="••••••••">
+
+                    <span class="eye-icon" (click)="togglePassword()">
+                        <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                    </span>
+
+                    <small class="text-danger d-block mt-1" *ngIf="f['password'].touched && f['password'].invalid">
+                        Must be 8+ chars with 1 uppercase & 1 number
+                    </small>
+                </div>
+            </div>
+            <!--confirm Password -->
+            <div class="row mb-3 align-items-center">
+                <label class="col-sm-4 col-form-label">Confirm</label>
+                <div class="col-sm-8 position-relative">
+                    <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control pe-5"
+                        formControlName="confirmPassword" placeholder="••••••••">
+
+                    <span class="eye-icon" (click)="toggleConfirmPassword()">
+                        <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                    </span>
+
+                    <small class="text-danger d-block mt-1"
+                        *ngIf="f['confirmPassword'].touched && signupForm.errors?.['mismatch']">
+                        Passwords do not match
+                    </small>
+                </div>
+            </div>
+            <!-- Button -->
+            <button type="submit" class="btn btn-success w-100 mt-3">
+                Sign Up
+            </button>
+
+        </form>
+
+
+        <p class="login-link">
+            Already have an account? <a [routerLink]="['/login']" (click)="$event.stopPropagation()">Login</a>
+        </p>
+
+    </div>
+    <!-- Toast -->
+    <!-- <div class="toast-box" [ngClass]="{'error-toast': toastMessage.includes('Please')}" *ngIf="toastMessage">
+        {{ toastMessage }}
+    </div> -->
+</div>

@@ -1,0 +1,135 @@
+<app-header></app-header>
+
+<main id="home" class="hero-section">
+  <div class="overlay">
+    <div class="hero-content glass-panel">
+      <span class="hero-chip">Premium shopping experience</span>
+      <h1>Modern style, smart shopping,<br> delivered with a premium touch.</h1>
+      <p>
+        Explore fashion, gadgets, home essentials and trending collections in one
+        beautiful shopping destination built for speed, style and comfort.
+      </p>
+
+      <div class="hero-actions">
+        <button class="cta-button primary" (click)="scrollToSection('collection')">
+          Shop Collection
+        </button>
+        <button class="cta-button secondary" (click)="scrollToSection('features')">
+          Explore Features
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section id="about" class="premium-section about-section">
+  <div class="section-heading">
+    <span class="section-tag">About ShopEZ</span>
+    <h2>A premium storefront for everyday shopping</h2>
+    <p>
+      ShopEZ brings premium visuals, trusted shopping features, fast browsing and
+      elegant product discovery into one modern e-commerce experience.
+    </p>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card glass-card">
+      <h3>Curated products</h3>
+      <p>
+        From fashion and toys to laptops and daily-use essentials, every category
+        is organised to make browsing smooth and enjoyable.
+      </p>
+    </div>
+
+    <div class="about-card glass-card">
+      <h3>Built for convenience</h3>
+      <p>
+        Responsive layouts, quick product actions, cart flow and order tracking
+        make the entire experience simple across desktop and mobile.
+      </p>
+    </div>
+
+    <div class="about-card glass-card">
+      <h3>Premium interface</h3>
+      <p>
+        Rich gradients, realistic layered backgrounds, modern cards and smooth
+        navigation give your project a real showcase-level look.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="collection" class="premium-section collection-section">
+  <div class="section-heading center">
+    <span class="section-tag">Our Collection</span>
+    <h2>Trending looks and featured products</h2>
+    <p>Click any card for a larger preview.</p>
+  </div>
+
+  <div class="collection-grid">
+    <div class="image-card" *ngFor="let img of images">
+      <img [src]="img" (click)="openImage(img)" data-bs-toggle="modal" data-bs-target="#imageModal" alt="collection image">
+      <!--<div class="image-overlay">View</div>-->
+    </div>
+  </div>
+</section>
+
+<section id="features" class="premium-section features-section">
+  <div class="section-heading center">
+    <span class="section-tag">Why users love ShopEZ</span>
+    <h2>Designed to feel premium on every screen</h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card glass-card">
+      <i>🚚</i>
+      <h3>Fast Delivery</h3>
+      <p>Simple purchase flow with a polished ordering experience.</p>
+    </div>
+    <div class="feature-card glass-card">
+      <i>🛡️</i>
+      <h3>Secure Checkout</h3>
+      <p>Clean dashboard flows and safer account-based shopping actions.</p>
+    </div>
+    <div class="feature-card glass-card">
+      <i>✨</i>
+      <h3>Premium UI</h3>
+      <p>Modern cards, layered backgrounds and responsive sections throughout.</p>
+    </div>
+    <div class="feature-card glass-card">
+      <i>📱</i>
+      <h3>Responsive Pages</h3>
+      <p>Optimised layout for desktop, tablet and smaller mobile screens.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="premium-section contact-section">
+  <div class="contact-card glass-panel">
+    <div>
+      <span class="section-tag">Contact Us</span>
+      <h2>Need help with your next order?</h2>
+      <p>Email: support&#64;shopez.com</p>
+      <p>Phone: +91 98765 43210</p>
+    </div>
+
+    <div class="contact-pill-group">
+      <span class="contact-pill">24/7 Support</span>
+      <span class="contact-pill">Quick Delivery</span>
+      <span class="contact-pill">Trusted Shopping</span>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>
+
+<div class="modal fade" id="imageModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered custom-modal">
+    <div class="modal-content">
+      <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"></button>
+      <div class="modal-body text-center">
+        <img [src]="selectedImage" class="popup-img" alt="preview image">
+      </div>
+    </div>
+  </div>
+</div>

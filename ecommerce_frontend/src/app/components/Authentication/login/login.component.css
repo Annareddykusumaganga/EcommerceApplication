@@ -1,0 +1,51 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+              url('/assets/images/bg.png') no-repeat center;
+  background-size: cover;
+}
+
+
+.login-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Position the icon with a 15px gap from the right edge */
+.eye-icon {
+  position: absolute;
+  right: 15px;      /* Increased from 10px to 15px for better spacing */
+  top: 50%;         /* Center vertically */
+  transform: translateY(-50%); /* Precise vertical centering */
+  cursor: pointer;
+  z-index: 10;      /* Ensure it stays above the input */
+  color: #6c757d;   /* Muted color for better UI */
+}
+
+/* Add padding-right to the input so text doesn't hide behind the eye */
+.form-control.pe-5 {
+  padding-right: 45px !important; 
+}
+.toast-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: white;
+  background: #28a745;
+}
+
+.error-toast {
+  background: #e74c3c;
+}
+a{
+    text-decoration: none;
+}

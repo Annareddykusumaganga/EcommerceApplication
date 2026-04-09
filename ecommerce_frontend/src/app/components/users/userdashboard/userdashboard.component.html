@@ -1,0 +1,146 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top px-3">
+  <a class="navbar-brand fw-bold text-white" (click)="toggleCartView(false)" style="cursor: pointer;">
+    ShopeZ
+  </a>
+
+  <button
+    class="navbar-toggler custom-toggler d-lg-none"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarContent"
+    aria-controls="navbarContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="search-container-center d-none d-lg-flex flex-grow-1 justify-content-center" *ngIf="!showCart && !showOrders">
+    <div class="search-wrapper">
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Search by product or category..." 
+          [(ngModel)]="searchTerm" 
+          (input)="search()">
+      </div>
+    </div>
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbarContent" #navbarContent>
+    <div class="d-lg-none mt-3 mb-3" *ngIf="!showCart && !showOrders">
+       <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchTerm" (input)="search()">
+      </div>
+    </div>
+
+    <div class="nav-actions ms-auto d-flex flex-column flex-lg-row align-items-lg-center gap-3">
+      <div class="cart-wrapper" (click)="toggleCartView(true)">
+        <button class="cart-btn">
+          <i class="bi bi-cart3"></i>
+          <span class="d-lg-none ms-2">Cart</span>
+        </button>
+        <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </div>
+
+      <button class="btn btn-my-orders btn-sm" (click)="toggleOrdersView(true)">
+        <i class="bi bi-bag-check"></i> My Orders
+      </button>
+
+      <button class="btn btn-logout btn-sm" (click)="openLogoutPopup()">
+        Logout
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div *ngIf="!showCart && !showOrders">
+    <div class="container mt-4">
+        <div class="d-flex flex-wrap gap-2 justify-content-center">
+            <button class="category-pill" (click)="filterByCategory('Electronics')">Electronics</button>
+            <button class="category-pill" (click)="filterByCategory('Fashions')">Fashions</button>
+            <button class="category-pill" (click)="filterByCategory('Sports')">Sports</button>
+            <button class="category-pill" (click)="filterByCategory('Womenwear')">Womenwear</button>
+            <button class="category-pill" (click)="filterByCategory('Home & Kitchen')">Home  & Kitchen</button>
+            <button class="category-pill" (click)="loadAllProducts()">View All</button>
+        </div>
+    </div>
+
+    <div class="container mt-5 mb-5">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <div class="col" *ngFor="let p of filteredProducts">
+                <div class="card h-100 border-0 shadow-sm product-card" (click)="openProduct(p)">
+                    <div class="img-container">
+                        <img *ngIf="p.image" [src]="'data:image/jpeg;base64,' + p.image">
+                    </div>
+                    <div class="card-body px-3 pb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-success small fw-bold">{{ p.category }}</span>
+                            <span class="text-muted small">Stock: {{ p.quantity }}</span>
+                        </div>
+                        <h5 class="card-title text-truncate">{{ p.name }}</h5>
+                        <p class="text-muted small">{{ p.description | slice:0:50 }}...</p>
+                        <div class="price-tag mb-3">₹{{ p.price }}</div>
+
+                        <div class="qty-selector d-flex justify-content-between mb-3">
+                            <button (click)="decrement(p); $event.stopPropagation()">
+                                <i class="bi bi-dash"></i>
+                            </button>
+                            <span>{{ p.selectedQty }}</span>
+                            <button (click)="increment(p); $event.stopPropagation()">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+
+                        <button class="btn btn-add-cart w-100"
+                                (click)="addToCart(p); $event.stopPropagation()"
+                                [disabled]="p.quantity <= 0">
+                            {{ p.quantity > 0 ? 'Add to Cart' : 'Sold Out' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4" *ngIf="showCart">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <button class="btn btn-sm btn-outline-dark text-white border-white" (click)="toggleCartView(false)">
+            <i class="bi bi-arrow-left"></i> Continue Shopping
+        </button>
+        <h3 class="fw-bold m-0 text-white">My Shopping Cart</h3>
+        <div></div>
+    </div>
+    <app-cartlist></app-cartlist>
+</div>
+
+<div class="container mt-4" *ngIf="showOrders">
+  <div class="d-flex justify-content-between mb-3">
+      <button class="btn btn-sm btn-outline-dark text-white border-white" (click)="toggleOrdersView(false)">
+          <i class="bi bi-arrow-left"></i> Continue Shopping
+      </button>
+      <h3 class="fw-bold text-white">My Orders</h3>
+  </div>
+  <app-orderhistory></app-orderhistory>
+</div>
+
+<div class="modal fade show d-block" *ngIf="showLogoutPopup" tabindex="-1" style="background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Logout</h5>
+        <button type="button" class="btn-close" (click)="closeLogoutPopup()"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to logout?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeLogoutPopup()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="confirmLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>

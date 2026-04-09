@@ -1,0 +1,237 @@
+.signup-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 🔥 Background Image + Gradient */
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+              url('/assets/images/bg.png') no-repeat center;
+  background-size: cover;
+
+  padding: 20px;
+}
+
+.signup-card {
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+}
+
+/* Back link inside card */
+.back-home {
+  text-decoration: none;
+  color: #3498db;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.subtitle {
+  text-align: center;
+  color: #7f8c8d;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+/* 🔥 Form row (label + input side by side) */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Label */
+.form-row label {
+  width: 120px;
+  font-weight: 600;
+}
+
+/* Input container */
+.input-box {
+  flex: 1;
+  position: relative;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Password icon */
+/*.password-field i {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}*/
+
+/* 1. Create a 15px gap from the right edge */
+.eye-icon {
+    position: absolute;
+    right: 15px;      /* Increased gap from the edge */
+    top: 19px;        /* Fixed top position to stay centered in a standard Bootstrap input */
+    cursor: pointer;
+    z-index: 10;      /* Ensure it sits on top of the input */
+    color: #6c757d;   /* Professional grey color */
+    display: flex;
+    align-items: center;
+}
+
+/* 2. Prevent text from sliding under the icon */
+.form-control.pe-5 {
+    padding-right: 45px !important; 
+}
+
+/* 3. Ensure the eye icon doesn't move when the error message appears */
+.position-relative {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4. Hover effect for better UX */
+.eye-icon:hover {
+    color: #3498db;
+}
+/* Error */
+.error {
+  color: red;
+  font-size: 0.7rem;
+}
+
+/* Button */
+.signup-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(45deg, #ff6a00, #ff3c3c);
+  border: none;
+  color: white;
+  border-radius: 8px;
+}
+/* Toast */
+.toast-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  background: #28a745;
+  color: white;
+
+  padding: 8px 14px;
+  border-radius: 6px;
+
+  font-size: 14px;
+  z-index: 9999;
+}
+
+/* 🔴 Error toast */
+.error-toast {
+  background: #e74c3c;
+}
+
+/* Animation */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(20px); }
+}
+
+
+
+
+/* 🔥 Password icon styling */
+.password-field {
+  position: relative;
+}
+
+.password-field i {
+  position: absolute;
+  right: 12px;
+  top: 38px;
+  cursor: pointer;
+  color: #555;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 0.75rem;
+}
+
+/* 🔥 Bright button */
+.signup-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(45deg, #ff6a00, #ff3c3c);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.signup-btn:hover {
+  opacity: 0.9;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+/* 🔥 Grid Layout */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns */
+  gap: 15px;
+}
+
+/* Full width elements */
+.full-width {
+  grid-column: span 2;
+}
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+p a{
+    text-decoration: none;
+    cursor:pointer;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* single column */
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+}
+.form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.form-select:focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}

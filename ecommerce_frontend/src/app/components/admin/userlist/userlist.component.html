@@ -1,0 +1,137 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Contact</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of filteredUsers">
+                <td>{{ user.id }}</td>
+                <td>{{ user.fullname }}</td>
+                <td>{{ user.email }}</td>
+                <td><span [class]="'badge ' + user.role">{{ user.role }}</span></td>
+                <td>{{ user.contactno }}</td>
+                <td>
+                    <button class="btn-edit" (click)="onEdit(user)">
+                        <i class="bi bi-pencil"></i>Edit
+                    </button>
+                    <button class="btn-delete" (click)="onDelete(user.id)">
+                        <i class="bi bi-trash"></i>Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="filteredUsers.length === 0" class="no-data">
+        No users found matching your criteria.
+    </div>
+</div>
+<!-- ✅ Pagination UI -->
+
+<div class="pagination-container">
+
+    <button
+        class="btn btn-secondary"
+        (click)="prevPage()"
+        [disabled]="page === 0">
+
+        Previous
+
+    </button>
+
+    <span class="page-info">
+
+        Page {{ page + 1 }}
+        of {{ totalPages }}
+
+    </span>
+
+    <button
+        class="btn btn-secondary"
+        (click)="nextPage()"
+        [disabled]="page === totalPages - 1">
+
+        Next
+
+    </button>
+
+</div>
+
+<!-- ✅ Edit User Modal -->
+
+<div class="modal-overlay" *ngIf="showEditModal">
+
+  <div class="modal-box">
+
+    <h3>Edit User</h3>
+
+    <form  #editForm="ngForm" (ngSubmit)="updateUser()">
+
+      <div class="mb-2">
+        <label>Full Name</label>
+        <input
+          type="text"
+          [(ngModel)]="selectedUser.fullname"
+          name="fullname"
+          class="form-control">
+      </div>
+
+      <div class="mb-2">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="selectedUser.email"
+          name="email"
+          class="form-control">
+      </div>
+
+      <div class="mb-2">
+        <label>Contact</label>
+        <input
+          type="text"
+          [(ngModel)]="selectedUser.contactno"
+          name="contactno"
+          class="form-control">
+      </div>
+
+      <div class="mb-2">
+        <label>Role</label>
+        <select
+          [(ngModel)]="selectedUser.role"
+          name="role"
+          class="form-control">
+
+          <option value="USER">USER</option>
+          <option value="ADMIN">ADMIN</option>
+
+        </select>
+      </div>
+
+      <div class="modal-actions">
+
+        <button type="submit" class="btn btn-success">
+          Update
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeModal()">
+
+          Cancel
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

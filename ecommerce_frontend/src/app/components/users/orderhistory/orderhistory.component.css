@@ -1,0 +1,75 @@
+/* ========================= */
+/* ADMIN TABLE STYLING       */
+/* ========================= */
+
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+.table thead {
+    background: #1e3c72; /* Dashboard primary color */
+}
+
+.table th {
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 15px;
+    border: none;
+}
+
+.table td {
+    padding: 12px 15px;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.status-select {
+    width: 130px;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+/* Row Hover effect */
+.table tbody tr:hover td {
+    background-color: #f8fafc;
+}
+
+/* ========================= */
+/* USER CARD STYLING         */
+/* ========================= */
+
+.order-list {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.order-list .card {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+}
+
+.order-list .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Status Badge Colors (Used in both Table & Cards) */
+.bg-warning { background-color: #f1c40f !important; color: #000 !important; }
+.bg-info { background-color: #3498db !important; color: #fff !important; }
+.bg-success { background-color: #2ecc71 !important; color: #fff !important; }
+.bg-danger { background-color: #e74c3c !important; color: #fff !important; }
+
+/* Existing fixes */
+.text-primary { color: #1fa2ff !important; }
+.text-info { color: #0ea5e9 !important; font-weight: 500; }
+.border-start { border-left: 1px solid #edf2f7 !important; background-color: #fafbfc; }
+
+@media (max-width: 768px) {
+  /* Table looks bad on mobile, enable scroll or stack */
+  .table-responsive {
+    border: 0;
+  }
+}

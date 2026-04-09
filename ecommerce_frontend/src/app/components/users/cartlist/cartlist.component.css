@@ -1,0 +1,111 @@
+.cart-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 15px;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.item-count {
+    background: #198754;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+/* Cart Item Cards */
+.cart-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    gap: 20px;
+}
+
+.item-img img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-details { flex: 2; }
+.item-details h5 { margin: 0; font-size: 1.1rem; }
+.category { color: #6c757d; font-size: 0.85rem; margin-bottom: 5px; }
+.price { font-weight: bold; color: #333; }
+
+.item-quantity { flex: 1; text-align: center; }
+.qty-value { font-weight: bold; font-size: 1.1rem; border: 1px solid #ddd; padding: 5px 12px; border-radius: 5px; }
+
+.item-subtotal { flex: 1; text-align: right; }
+.item-subtotal p { margin: 0; font-size: 0.8rem; color: #888; }
+
+.btn-remove {
+    background: #fff5f5;
+    color: #ff4d4d;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-remove:hover { background: #ff4d4d; color: white; }
+
+/* Summary Section */
+.cart-summary {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1.05rem;
+}
+
+.total {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #198754;
+}
+
+.btn-checkout {
+    width: 100%;
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.btn-checkout:hover { background: #157347; }
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    color: #adb5bd;
+}
+
+.empty-state i { font-size: 4rem; }
