@@ -8,24 +8,26 @@
             <i class="bi" [ngClass]="isSidebarOpen ? 'bi-chevron-left' : 'bi-chevron-right'"></i>
         </button>
         <nav class="menu">
-            <button class="menu-btn" [class.active]="currentView === 'users'" (click)="setView('users')">
+            <button class="menu-btn" routerLink="/dashboard/userlist" routerLinkActive="active">
                 <i class="bi bi-people"></i>
                 <span>Total Users</span>
             </button>
 
-            <button class="menu-btn" (click)="navigateToAdd()">
+            <button class="menu-btn"  routerLink="/add-product">
                 <i class="bi bi-plus-circle"></i>
                 <span>Add Product</span>
             </button>
 
-            <button class="menu-btn" [class.active]="currentView === 'products'" (click)="setView('products')">
+            <button class="menu-btn" routerLink="/dashboard/viewproductlist" routerLinkActive="active">
                 <i class="bi bi-box-seam"></i>
                 <span>View Products</span>
             </button>
-            <button class="menu-btn" [class.active]="currentView === 'orders'" (click)="setView('orders')">
+            <button class="menu-btn" routerLink="/dashboard/orderhistory" routerLinkActive="active">
                 <i class="bi bi-cart-check"></i>
                 <span>View Orders</span>
             </button>
+
+
 
             <button class="menu-btn logout" (click)="onLogout()">
                 <i class="bi bi-box-arrow-right"></i>
@@ -62,6 +64,7 @@
         </header>
 
         <div class="content-area">
+
             <!-- Product List -->
             <app-viewproductlist *ngIf="currentView === 'products'" [searchTerm]="searchControl.value || ''"
                 [filterCategory]="categoryControl.value || ''" [filterPrice]="priceControl.value">
@@ -100,6 +103,7 @@
                 </app-orderhistory>
             </div>
         </div>
+
     </main>
 </div>
 

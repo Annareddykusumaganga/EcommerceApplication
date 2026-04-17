@@ -36,7 +36,17 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [authGuard]
+        canActivate: [authGuard],
+        children: [
+           
+            { path: 'viewproductlist', component: ViewproductlistComponent },
+            { path: 'edit-product/:id', component: AddProductComponent },
+            { path: 'userlist', component: UserlistComponent },
+            { path:'orderhistory', component:OrderhistoryComponent
+            },
+            // Default sub-route when you just visit /admin
+            { path: '', redirectTo: 'viewproductlist', pathMatch: 'full' } 
+        ]
     },
     {
         path: 'add-product',
@@ -44,14 +54,25 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     
+    
+   /* {
+        path:'viewproductlist',
+        component:ViewproductlistComponent,
+        canActivate: [authGuard]
+    },
+     {
+        path:'userlist',
+        component:UserlistComponent
+    },
+    {
+        path:'orderhistory',
+        component:OrderhistoryComponent,
+         canActivate: [authGuard]
+    },*/
+
     {
         path:'userdashboard',
         component:UserdashboardComponent,
-        canActivate: [authGuard]
-    },
-    {
-        path:'viewproductlist',
-        component:ViewproductlistComponent,
         canActivate: [authGuard]
     },
      {
@@ -59,10 +80,7 @@ export const routes: Routes = [
         component: AddProductComponent,
         canActivate: [authGuard]
     },
-    {
-        path:'userlist',
-        component:UserlistComponent
-    },
+  
      {
         path:'forgot-password',
         component:ForgotpasswordComponent
@@ -72,11 +90,7 @@ export const routes: Routes = [
         component:CartlistComponent,
          canActivate: [authGuard]
     },
-    {
-        path:'orderhistory',
-        component:OrderhistoryComponent,
-         canActivate: [authGuard]
-    },
+    
     {
         path: '**', // Wildcard route for 404 - Page Not Found
         redirectTo: 'home'

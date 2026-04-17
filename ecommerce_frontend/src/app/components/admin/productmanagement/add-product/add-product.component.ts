@@ -20,7 +20,7 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]{3,50}$/)]),
+      name: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{3,50}$/)]),
       price: new FormControl('', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]),
       quantity: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]+$/)]),
       category: new FormControl('', Validators.required),

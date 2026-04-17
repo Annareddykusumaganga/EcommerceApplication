@@ -2,16 +2,17 @@ import { Component} from '@angular/core';
 
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { ViewproductlistComponent } from '../productmanagement/viewproductlist/viewproductlist.component';
 import { UserlistComponent } from '../userlist/userlist.component';
 import { OrderhistoryComponent } from '../../users/orderhistory/orderhistory.component';
+import { filter } from 'rxjs';
 
 
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, ReactiveFormsModule, ViewproductlistComponent, UserlistComponent,OrderhistoryComponent],
+  imports: [CommonModule, ReactiveFormsModule, ViewproductlistComponent, UserlistComponent,OrderhistoryComponent,RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -31,6 +32,36 @@ priceControl = new FormControl<number | null>(null);
    ngOnInit() {
     this.checkMobile();
     window.addEventListener('resize', () => this.checkMobile());
+
+    // ✅ Detect current URL on page load
+  this.setViewFromUrl(this.router.url);
+    // Detect URL change
+  this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event: any) => {
+      this.setViewFromUrl(event.url);
+
+    });
+  }
+    setViewFromUrl(url: string) {
+      if (url.includes('viewproductlist')) {
+        this.currentView = 'products';
+      }
+
+      else if (url.includes('userlist')) {
+        this.currentView = 'users';
+      }
+
+      else if (url.includes('orderhistory')) {
+        this.currentView = 'orders';
+      }
+
+      // Reset filters
+      this.searchControl.setValue('');
+      this.categoryControl.setValue('');
+      this.priceControl.setValue(null);
+
+   
   }
 
   checkMobile() {

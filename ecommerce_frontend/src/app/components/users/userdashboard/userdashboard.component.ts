@@ -25,7 +25,7 @@ products: any[] = [];
   showLogoutPopup: boolean = false;
   showCart: boolean = false;
   showOrders: boolean = false;
-  user: any = null; // ✅ Added this to fix the "Welcome" message in HTML
+
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -43,14 +43,11 @@ products: any[] = [];
 
   ngOnInit(): void {
     this.loadProducts();
-    // ✅ FIXED: SSR Safety check prevents the localStorage crash
-    if (typeof window !== 'undefined' && window.localStorage) {
     const userData = localStorage.getItem('user');
     if (userData) {
-      this.user = JSON.parse(userData);
-      this.userId = this.user.id;
+      const user = JSON.parse(userData);
+      this.userId = user.id;
       this.loadCartCount();
-    }
     }
   }
 
@@ -158,10 +155,8 @@ toggleOrdersView(status: boolean) {
   closeLogoutPopup() { this.showLogoutPopup = false; }
 
   confirmLogout() {
-    if (typeof window !== 'undefined' && window.localStorage) {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
    this.router.navigate(['/login']);
-    }
   }
 }
